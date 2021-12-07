@@ -1,6 +1,8 @@
 using Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MediatR;
+using Application.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,9 @@ builder.Services.AddCors(opt => {
         policy.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
     });
 });
+
+builder.Services.AddMediatR(typeof(Application.Activities.List.Handler).Assembly);
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
 var app = builder.Build();
 
